@@ -14,6 +14,7 @@ logging.getLogger(__name__).addHandler(handler)
 @pytest.fixture
 def mock_serial(mocker):
     return mocker.patch('serial.Serial')
+    # return mocker.patch('my_serial.MySerial')
 
 
 @pytest.fixture
@@ -99,11 +100,19 @@ def test_read_port(mock_serial):
     """
     Reading port.
     """
-    logging.info("Test to read port.")
-    serial_connection = MySerial()
+    logging.info("Testing read port functionality.")
+    logging.info(f"Creating mock_serial_instance.")
     try:
+        mock_serial_instance = mock_serial.return_value
+        mock_serial_instance.read.return_value = b'Testing\n'
+    except BaseException as e:
+        logging.exception(f"Mock serial instance generation failed. {e}")
+
+    try:
+        serial_connection = MySerial()
         serial_connection.connect()
-        read_data = serial_connection.read()
-        logging.info(f"read_data: {read_data}")
+        expected_out = b'Testing\n'
+        data = serial_connection.read()
+        assert data == expected_out
     except serial.SerialException as e:
-        logging.exception(f"Reading port is failed. {e}")
+        logging.exception(f"Serial port reading is failed. {e}")

@@ -1,20 +1,12 @@
 import logging
-import time
-
 import serial
 import serial.tools.list_ports as pl
-
-
-# logging.basicConfig(filename="COM_log.txt", filemode="w", level=logging.INFO,
-#                     format='%(name)s - %(levelname)s - %(message)s')
-#
-# my_logger = logging.getLogger()
 
 
 class MySerial:
     logging.info("Testing functionality of MySerial class...!!!")
 
-    def __init__(self, baudrate=9600, timeout=1):
+    def __init__(self, baudrate=115200, timeout=1):
         self.baudrate = baudrate
         self.timeout = timeout
         self.serial = None
