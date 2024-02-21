@@ -6,6 +6,7 @@ import re
 
 def git_readme_update(readme_data):
     repo = git.Repo(os.getcwd())
+    print(f"repo::: {repo}")
     branch = repo.active_branch.name
     print(f"branch: {branch}")
     # content = ("### Test Results: ###\n\n"
