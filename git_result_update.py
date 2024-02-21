@@ -2,24 +2,23 @@ import git
 import os
 import openpyxl
 import re
+import argparse
 
 
-def git_readme_update(readme_data):
+def git_readme_update(readme_data, branch):
     repo = git.Repo(os.getcwd())
     print(f"repo::: {repo}")
-    branch = repo.active_branch.name
-    print(f"branch: {branch}")
-    # content = ("### Test Results: ###\n\n"
-    #            "| Test-ID | Test Case Name | Test Case Result |\n"
-    #            "| :------:|:--------------:|:----------------:|\n")
-    # for ele in readme_data:
-    #     content += f"|{ele['test_id']}|{ele['test_name']}|{ele['result']}|\n"
-    # with open("README.md", "w") as f:
-    #     f.write(content)
-    # repo.index.add("README.md")
-    # repo.index.commit("Update README.md with tests results")
-    # origin = repo.remote(name="origin")
-    # origin.push(branch)
+    content = ("### Test Results: ###\n\n"
+               "| Test-ID | Test Case Name | Test Case Result |\n"
+               "| :------:|:--------------:|:----------------:|\n")
+    for ele in readme_data:
+        content += f"|{ele['test_id']}|{ele['test_name']}|{ele['result']}|\n"
+    with open("README.md", "w") as f:
+        f.write(content)
+    repo.index.add("README.md")
+    repo.index.commit("Update README.md with tests results")
+    origin = repo.remote(name="origin")
+    origin.push(branch)
 
 
 def extract_excel_data():
@@ -41,5 +40,11 @@ def extract_excel_data():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Enter git branch name.")
+    parser.add_argument("--branch_name", type=str, help="Enter branch name "
+                                                        "to update README.md")
+    args = parser.parse_args()
+    branch_name = args.branch_name
+    print(f"branch_name: {branch_name}")
     data = extract_excel_data()
-    git_readme_update(data)
+    git_readme_update(data, branch_name)
