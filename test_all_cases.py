@@ -23,24 +23,30 @@ def mock_open_file(mocker):
 
 
 @pytest.mark.connect_pass_case
-def test_connect_success(mock_serial):
+@pytest.mark.parametrize('test_id', ["TEST-001"])
+def test_connect_success(mock_serial, test_id):
     """
     Pass case for testing successful connection with serial port.
     """
     logging.info("Test connection to the port.")
     # serial_connection = MySerial(
     #     port='COM1')  # Provide a port for successful connection
-    serial_connection = MySerial()  # Provide a port for successful connection
-    serial_connection.connect()
     try:
-        mock_serial.assert_called_once_with('COM1', 9600, timeout=1)
+        serial_connection = MySerial()  # Provide a port for successful connection
+        serial_connection.connect()
+        mock_serial.assert_called_once_with('COM1', 115200, timeout=1)
     except AssertionError as e:
         logging.exception(
             f"Connection failed in test_connect_success. {e}")
+        pytest.fail(f"Connection failed in test_connect_success: {e}")
+    except serial.SerialException as e:
+        logging.exception(f"Connection failed: {e}")
+        pytest.fail(f"Connection failed: {e}")
 
 
 @pytest.mark.connect_fail_case
-def test_connect_failure(mock_serial):
+@pytest.mark.parametrize('test_id', ["TEST-002"])
+def test_connect_failure(mock_serial, test_id):
     """
     Dummy fail case to test connection functionality.
     """
@@ -58,7 +64,8 @@ def test_connect_failure(mock_serial):
 
 
 @pytest.mark.write_case
-def test_write(mock_serial, mock_open_file):
+@pytest.mark.parametrize('test_id', ["TEST-003"])
+def test_write(mock_serial, mock_open_file, test_id):
     """
     Writing a small message on port and store it in txt file.
     """
@@ -78,7 +85,8 @@ def test_write(mock_serial, mock_open_file):
 
 
 @pytest.mark.write_to_log_case
-def test_write_to_log(mock_serial):
+@pytest.mark.parametrize('test_id', ["TEST-004"])
+def test_write_to_log(mock_serial, test_id):
     """
     Write to log file.
     """
@@ -96,7 +104,8 @@ def test_write_to_log(mock_serial):
 
 
 @pytest.mark.read_port_case
-def test_read_port(mock_serial):
+@pytest.mark.parametrize('test_id', ["TEST-005"])
+def test_read_port(mock_serial, test_id):
     """
     Reading port.
     """

@@ -20,7 +20,6 @@ class MySerial:
         try:
             for port in ser:
                 port_list.append(port.name)
-                print(port.name, port.description)
             logging.info(f"Available port list: {port_list}")
         except serial.SerialException:
             pass
