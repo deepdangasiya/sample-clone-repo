@@ -6,7 +6,7 @@ import re
 
 def git_readme_update(readme_data):
     repo = git.Repo(os.getcwd())
-    branch = repo.active_branch
+    branch = repo.active_branch.name
     content = ("### Test Results: ###\n\n"
                "| Test-ID | Test Case Name | Test Case Result |\n"
                "| :------:|:--------------:|:----------------:|\n")
@@ -17,7 +17,7 @@ def git_readme_update(readme_data):
     repo.index.add("README.md")
     repo.index.commit("Update README.md with tests results")
     origin = repo.remote(name="origin")
-    origin.push(str(branch))
+    origin.push(branch)
 
 
 def extract_excel_data():
