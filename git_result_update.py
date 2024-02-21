@@ -7,7 +7,7 @@ import argparse
 
 def git_readme_update(readme_data, branch):
     repo = git.Repo(os.getcwd())
-    print(f"repo::: {repo}")
+    print(f"repo::: {repo} -- {branch}")
     content = ("### Test Results: ###\n\n"
                "| Test-ID | Test Case Name | Test Case Result |\n"
                "| :------:|:--------------:|:----------------:|\n")
@@ -45,6 +45,6 @@ if __name__ == "__main__":
                                                         "to update README.md")
     args = parser.parse_args()
     branch_name = args.branch_name
-    print(f"branch_name: {branch_name}")
+    print(f"branch_name: {branch_name.split('/')[1]}")
     data = extract_excel_data()
-    git_readme_update(data, branch_name)
+    git_readme_update(data, branch_name.split('/')[1])
