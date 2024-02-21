@@ -7,7 +7,6 @@ import argparse
 
 def git_readme_update(readme_data, branch):
     repo = git.Repo(os.getcwd())
-    repo.git.checkout(branch)
     print(f"repo::: {repo} -- {branch}")
     content = ("### Test Results: ###\n\n"
                "| Test-ID | Test Case Name | Test Case Result |\n"
@@ -18,8 +17,9 @@ def git_readme_update(readme_data, branch):
         f.write(content)
     repo.index.add("README.md")
     repo.index.commit("Update README.md with tests results")
-    origin = repo.remote(name="origin")
-    origin.push(branch)
+    # origin = repo.remote(name="origin")
+    # origin.push(branch)
+    repo.git.push("-u", "origin", branch)
 
 
 def extract_excel_data():
