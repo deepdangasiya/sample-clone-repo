@@ -9,9 +9,12 @@ def git_readme_update(readme_data, branch):
     repo = git.Repo(os.getcwd())
     print(f"repo::: {repo} -- {branch}")
     remote_refs = repo.remote().refs
-
+    if branch in remote_refs:
+        print(f"index: {remote_refs.index(branch)}")
     for refs in remote_refs:
         print(f"refs:: {refs.name}")
+
+
     # content = ("### Test Results: ###\n\n"
     #            "| Test-ID | Test Case Name | Test Case Result |\n"
     #            "| :------:|:--------------:|:----------------:|\n")
