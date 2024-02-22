@@ -9,21 +9,19 @@ def git_readme_update(readme_data, branch):
     repo = git.Repo(os.getcwd())
     print(f"repo::: {repo} -- {branch}")
     repo.git.checkout(branch)
-    print(repo.active_branch)
-
-
-    # content = ("### Test Results: ###\n\n"
-    #            "| Test-ID | Test Case Name | Test Case Result |\n"
-    #            "| :------:|:--------------:|:----------------:|\n")
-    # for ele in readme_data:
-    #     content += f"|{ele['test_id']}|{ele['test_name']}|{ele['result']}|\n"
-    # with open("README.md", "w") as f:
-    #     f.write(content)
-    # repo.index.add("README.md")
-    # repo.index.commit("Update README.md with tests results")
-    # # origin = repo.remote(name="origin")
-    # # origin.push(branch)
-    # repo.git.push("-u", "origin", branch)
+    print(f"active branch:: {repo.active_branch}")
+    content = ("### Test Results: ###\n\n"
+               "| Test-ID | Test Case Name | Test Case Result |\n"
+               "| :------:|:--------------:|:----------------:|\n")
+    for ele in readme_data:
+        content += f"|{ele['test_id']}|{ele['test_name']}|{ele['result']}|\n"
+    with open("README.md", "w") as f:
+        f.write(content)
+    repo.index.add("README.md")
+    repo.index.commit("Update README.md with tests results")
+    # origin = repo.remote(name="origin")
+    # origin.push(branch)
+    repo.git.push("-u", "origin", branch)
 
 
 def extract_excel_data():
