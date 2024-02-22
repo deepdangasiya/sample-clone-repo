@@ -8,11 +8,8 @@ import argparse
 def git_readme_update(readme_data, branch):
     repo = git.Repo(os.getcwd())
     print(f"repo::: {repo} -- {branch}")
-    remote_refs = repo.remote().refs
-    if branch in remote_refs:
-        print(f"index: {remote_refs.index(branch)}")
-    for refs in remote_refs:
-        print(f"refs:: {refs.name}")
+    repo.git.checkout(branch)
+    print(repo.active_branch)
 
 
     # content = ("### Test Results: ###\n\n"
