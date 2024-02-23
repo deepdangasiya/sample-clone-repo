@@ -42,11 +42,12 @@ def extract_excel_data():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Enter git branch name.")
-    parser.add_argument("--branch_name", type=str, help="Enter branch name "
-                                                        "to update README.md")
-    args = parser.parse_args()
-    branch_name = args.branch_name
+    # parser = argparse.ArgumentParser(description="Enter git branch name.")
+    # parser.add_argument("--branch_name", type=str, help="Enter branch name "
+    #                                                     "to update README.md")
+    # args = parser.parse_args()
+    # branch_name = args.branch_name
+    branch_name = "practice_branch"
     # print(f"branch_name: {branch_name.split('/')[1]}")
     print(f"branch_name: {branch_name}")
     data = extract_excel_data()
