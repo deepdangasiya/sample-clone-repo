@@ -7,8 +7,8 @@ import argparse
 
 def git_readme_update(readme_data, branch):
     repo = git.Repo(os.getcwd())
-    repo.git.checkout(branch)
-    print(f"active branch:: {repo.active_branch}")
+    # repo.git.checkout(branch)
+    # print(f"active branch:: {repo.active_branch}")
     content = ("### Test Results: ###\n\n"
                "| Test-ID | Test Case Name | Test Case Result |\n"
                "| :------:|:--------------:|:----------------:|\n")
